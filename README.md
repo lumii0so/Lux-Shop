@@ -32,10 +32,6 @@ storage and Docker for deployment.
 - Admin-only panel
 - Products menu
     - Add products
-- Edit products
-- Delete products
-- View products
-- Manage orders
 
 #### In Development
 
