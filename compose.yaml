@@ -1,0 +1,24 @@
+services:
+  database:
+    image: postgres:18
+    container_name: bot_postgres_db
+    ports:
+      - ${DB_PORT}:5432
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - bot_db:/var/lib/postgresql
+  bot:
+    build: .
+    container_name: bot_shop
+    env_file:
+      - .env
+    depends_on:
+      - database
+    restart: always
+
+volumes:
+  bot_db:
