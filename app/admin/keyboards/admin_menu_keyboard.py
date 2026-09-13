@@ -22,7 +22,7 @@ admin_menu_keyboard = InlineKeyboardMarkup(
         ],
         [
             InlineKeyboardButton(
-                text='💬 Support requests 🚧',
+                text='💬 Support requests',
                 callback_data='admin:support'
             )
         ],

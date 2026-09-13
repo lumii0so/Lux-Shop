@@ -19,7 +19,7 @@ async def show_admin_panel(message: Message, name: str):
 async def admin_handler(message: Message) -> None:
     await show_admin_panel(message, message.from_user.first_name)
 
-@router.callback_query(F.data == 'admin:back')
+@router.callback_query(F.data == 'admin:menu')
 async def admin_menu_button_handler(callback: CallbackQuery) -> None:
     await callback.message.delete()
 
