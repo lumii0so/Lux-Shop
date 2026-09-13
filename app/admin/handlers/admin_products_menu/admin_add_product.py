@@ -15,11 +15,6 @@ router = Router()
 
 # Add product
 
-async def invalid_enter_message(message: Message, adding_stage: str):
-     await message.answer(
-                 f"❌ Please enter valid product {adding_stage}:"
-             )
-
 @router.callback_query(F.data == 'admin:products:add', IsAdmin(admin_ids))
 async def add_product_handler(
     callback: CallbackQuery,
@@ -53,7 +48,7 @@ async def product_name_handler(
     state: FSMContext
 ) -> None:
     if not message.text:
-        await invalid_enter_message(message=message, adding_stage='name')
+        await message.answer('❌ Please send a text message.')
         return
     
     await state.update_data(name=message.text)
@@ -70,7 +65,7 @@ async def product_category_handler(
     state: FSMContext
 ) -> None:
     if not message.text:
-            await invalid_enter_message(message=message, adding_stage='category')
+            await message.answer('❌ Please send a text message.')
             return
 
     await state.update_data(category=message.text)
@@ -87,7 +82,7 @@ async def product_price_handler(
     state: FSMContext
 ) -> None:
     if not message.text:
-            await invalid_enter_message(message=message, adding_stage='price')
+            await message.answer('❌ Please send a text message.')
             return
     
     try:
@@ -115,8 +110,8 @@ async def product_stock_handler(
     state: FSMContext
 ) -> None:
     if not message.text:
-            await invalid_enter_message(message=message, adding_stage='stock')
-            return
+        await message.answer('❌ Please send a text message.')
+        return
     
     if not message.text.isdigit():
         await message.answer("Please enter a valid stock amount:")

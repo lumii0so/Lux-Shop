@@ -18,6 +18,9 @@ storage and Docker for deployment.
 
 - Browse products (Catalog pagination is present)
 - Contact support
+    - Make support requests
+    - View submitted requests
+        - Two sided chat with admins
 
 #### In Development
 
@@ -32,10 +35,9 @@ storage and Docker for deployment.
 - Admin-only panel
 - Products menu
     - Add products
-- Edit products
-- Delete products
-- View products
-- Manage orders
+- Support requests
+    - View open requests
+        - Respond to requests
 
 #### In Development
 
@@ -46,6 +48,8 @@ storage and Docker for deployment.
 - Manage orders
 - Manage users
 - Support requests
+    - View all requests
+    - Close requests
 - View statistics
 
 ## Tech Stack
@@ -93,7 +97,7 @@ Make sure you have [Docker](https://docker.com) and [Docker Compose](https://doc
 
 ### 1. Clone the repository:
     ```bash
-    git clone https://github.com
+    git clone https://github.com/lumii0so/Lux-Shop.git
     cd your-repo-name
     ```
 

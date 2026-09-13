@@ -29,7 +29,7 @@ admin_products_keyboard = InlineKeyboardMarkup(
             [
                 InlineKeyboardButton(
                     text='◀️ Back',
-                    callback_data='admin:back'
+                    callback_data='admin:menu'
                 )
             ]
         ]

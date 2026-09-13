@@ -8,3 +8,9 @@ class AddProduct(StatesGroup):
 
 class SupportRequest(StatesGroup):
     message = State()
+
+class UserReplyRequest(StatesGroup):
+    message = State()
+
+class AdminReplyRequest(StatesGroup):
+    message = State()
