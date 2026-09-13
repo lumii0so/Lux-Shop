@@ -40,10 +40,20 @@ CREATE TABLE order_contents (
 CREATE TABLE support_requests (
     SupportRequestID INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     UserID INT NOT NULL,
-    USERNAME VARCHAR(100),
-    Message TEXT NOT NULL,
     CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     Status VARCHAR(20) NOT NULL DEFAULT 'open',
 
     FOREIGN KEY (UserID) REFERENCES users(UserID)
+);
+
+
+CREATE TABLE support_messages (
+    SupportMessageID INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    SupportRequestID INT NOT NULL,
+    SenderType VARCHAR(10) NOT NULL,
+    Message TEXT NOT NULL,
+    CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    FOREIGN KEY (SupportRequestID)
+        REFERENCES support_requests(SupportRequestID)
 );

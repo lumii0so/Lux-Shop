@@ -10,14 +10,14 @@ admin_support_keyboard = InlineKeyboardMarkup(
             ],
             [
                 InlineKeyboardButton(
-                    text='🗒️ All requests',
-                    callback_data='admin:products:edit'
+                    text='🗒️ All requests 🚧',
+                    callback_data='admin:support:all'
                 )
             ],
             [
                 InlineKeyboardButton(
                     text='◀️ Back',
-                    callback_data='admin:back'
+                    callback_data='admin:menu'
                 )
             ]
         ]

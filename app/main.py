@@ -1,4 +1,4 @@
-import os, asyncio
+import asyncio
 from aiogram import Bot, Dispatcher
 from aiogram.types import BotCommand
 import logging
@@ -12,18 +12,29 @@ from app.database.connection import init_db, close_db
 # User handlers
 from app.user.handlers.main_menu import router as main_menu_router
 from app.user.handlers.products import router as products_router
+
+
 from app.user.handlers.orders import router as orders_router
-from app.user.handlers.support import router as support_router
+
+
+from app.user.handlers.support_menu.support_menu import router as support_menu_router
+from app.user.handlers.support_menu.write_support_request import router as write_request_router
+from app.user.handlers.support_menu.user_requests_menu import router as user_requests_router
+from app.user.handlers.support_menu.request_menu import router as user_request_menu_router
+
+
 from app.user.handlers.about import router as about_router
 
 # Admin handlers
 from app.admin.handlers.admin_menu import router as admin_menu_router
+
 
 from app.admin.handlers.admin_products_menu.admin_products_menu import router as admin_products_menu_router
 from app.admin.handlers.admin_products_menu.admin_add_product import router as admin_add_product_router
 from app.admin.handlers.admin_products_menu.admin_edit_product import router as admin_edit_product_router
 from app.admin.handlers.admin_products_menu.admin_delete_product import router as admin_delete_product_router
 from app.admin.handlers.admin_products_menu.admin_product_statistics import router as admin_product_statistics_router
+
 
 from app.admin.handlers.admin_orders_menu.admin_orders_menu import router as admin_orders_menu_router
 
@@ -32,11 +43,13 @@ from app.admin.handlers.admin_users_menu.admin_users_menu import router as admin
 
 
 from app.admin.handlers.admin_support_menu.admin_support_menu import router as admin_support_menu_router
+from app.admin.handlers.admin_support_menu.admin_open_requests import router as admin_open_requests_menu_router
+from app.admin.handlers.admin_support_menu.admin_request_menu import router as admin_request_menu_router
 
 
 from app.admin.handlers.admin_statistics_menu.admin_statistics_menu import router as admin_statistics_menu_router
 
-
+# ================================================================
 
 # Logging info
 logging.basicConfig(level=logging.INFO)
@@ -54,14 +67,27 @@ async def set_commands(bot: Bot):
     ]
     await bot.set_my_commands(commands)
 
-# 1. User interface handlers
+# 1. User interface handler
 dp.include_router(main_menu_router)
+
+# 1.1 User products panel handlers
 dp.include_router(products_router)
+
+# 1.2 User orders panel handlers
 dp.include_router(orders_router)
-dp.include_router(support_router)
+
+# 1.3 User support panel handlers
+dp.include_router(support_menu_router)
+dp.include_router(write_request_router)
+dp.include_router(user_requests_router)
+dp.include_router(user_request_menu_router)
+
+# 1.4 About panel handler
 dp.include_router(about_router)
 
-# 2. Admin panel handlers
+# ================================================================
+
+# 2. Admin panel handler
 dp.include_router(admin_menu_router)
 
 # 2.1 Admin products panel handlers
@@ -81,11 +107,14 @@ dp.include_router(admin_users_menu_router)
 
 # 2.4 Admin support panel handlers
 dp.include_router(admin_support_menu_router)
+dp.include_router(admin_open_requests_menu_router)
+dp.include_router(admin_request_menu_router)
 
 
 # 2.5 Admin statistics panel handlers
 dp.include_router(admin_statistics_menu_router)
 
+# ================================================================
 
 async def main() -> None:
     await init_db()
