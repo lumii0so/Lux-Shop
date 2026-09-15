@@ -6,5 +6,6 @@ ASSETS_DIR = BASE_DIR / 'assets'
 # Images paths
 
 main_menu_image_path = ASSETS_DIR / 'main_menu.jpg'
-products_menu_image_path = ASSETS_DIR / 'products_menu.jpg'
+catalog_menu_image_path = ASSETS_DIR / 'catalog_menu.jpg'
 support_menu_image_path = ASSETS_DIR / 'support_menu.jpg'
+product_info_menu_image_path = ASSETS_DIR / 'product_info_menu.jpg' 

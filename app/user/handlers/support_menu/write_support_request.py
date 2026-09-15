@@ -2,7 +2,7 @@ from aiogram import F, Router
 from aiogram.types import CallbackQuery, Message
 from aiogram.fsm.context import FSMContext
 
-from app.admin.keyboards.admin_request_menu_keyboard import admin_request_notification_keyboard
+from app.admin.keyboards.admin_request_menu_keyboard import admin_notification_keyboard
 from app.user.keyboards.support_menu_keyboards.support_menu_keyboard import support_request_keyboard
 from app.user.states import SupportRequest
 from app.database.queries import get_user_id, create_support_request, add_request_message
@@ -58,7 +58,7 @@ async def support_message_handler(message: Message, state: FSMContext) -> None:
                 f'👤 <b>@{message.from_user.username or "No username"}</b>\n\n' 
                 f'💬 {message.text}' 
             ), 
-            reply_markup=admin_request_notification_keyboard(request_id), 
+            reply_markup=admin_notification_keyboard(request_id), 
             parse_mode='HTML' 
         )
 

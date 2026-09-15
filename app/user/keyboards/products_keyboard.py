@@ -1,6 +1,6 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-def products_keyboard(products: list, page: int, has_next_page: bool) -> InlineKeyboardMarkup:
+def products_list_keyboard(products: list, page: int, has_next_page: bool) -> InlineKeyboardMarkup:
     buttons = []
 
     for product in products:

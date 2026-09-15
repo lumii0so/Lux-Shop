@@ -36,7 +36,7 @@ def admin_request_reply_keyboard(request_id: int) -> InlineKeyboardMarkup:
         ]
     )
 
-def admin_request_notification_keyboard(request_id: int) -> InlineKeyboardMarkup:
+def admin_notification_keyboard(request_id: int) -> InlineKeyboardMarkup:
     return InlineKeyboardMarkup(
         inline_keyboard=[
             [
@@ -59,11 +59,3 @@ def admin_notification_reply_keyboard(request_id: int) -> InlineKeyboardMarkup:
             ]
         ]
     )
-
-admin_support_request_keyboard = InlineKeyboardMarkup(
-    inline_keyboard=[
-        [
-            InlineKeyboardButton(text="◀️ Back", callback_data="admin:support")
-        ]
-    ]
-)

@@ -31,10 +31,8 @@ from app.admin.handlers.admin_menu import router as admin_menu_router
 
 from app.admin.handlers.admin_products_menu.admin_products_menu import router as admin_products_menu_router
 from app.admin.handlers.admin_products_menu.admin_add_product import router as admin_add_product_router
-from app.admin.handlers.admin_products_menu.admin_edit_product import router as admin_edit_product_router
-from app.admin.handlers.admin_products_menu.admin_delete_product import router as admin_delete_product_router
-from app.admin.handlers.admin_products_menu.admin_product_statistics import router as admin_product_statistics_router
-
+from app.admin.handlers.admin_products_menu.admin_view_products import router as admin_view_products_router
+from app.admin.handlers.admin_products_menu.admin_product_info_menu import router as admin_product_info_menu_router
 
 from app.admin.handlers.admin_orders_menu.admin_orders_menu import router as admin_orders_menu_router
 
@@ -93,9 +91,8 @@ dp.include_router(admin_menu_router)
 # 2.1 Admin products panel handlers
 dp.include_router(admin_products_menu_router)
 dp.include_router(admin_add_product_router)
-dp.include_router(admin_edit_product_router)
-dp.include_router(admin_delete_product_router)
-dp.include_router(admin_product_statistics_router)
+dp.include_router(admin_view_products_router)
+dp.include_router(admin_product_info_menu_router)
 
 # 2.2 Admin orders panel handlers
 dp.include_router(admin_orders_menu_router)

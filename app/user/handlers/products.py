@@ -2,8 +2,8 @@ from aiogram import F, Router
 from aiogram.types import CallbackQuery, FSInputFile
 
 from app.database.queries import retrieve_products
-from app.paths import products_menu_image_path
-from app.user.keyboards.products_keyboard import products_keyboard
+from app.paths import catalog_menu_image_path
+from app.user.keyboards.products_keyboard import products_list_keyboard
 
 router = Router()
 
@@ -18,9 +18,9 @@ async def products_handler(callback: CallbackQuery) -> None:
 
     if not products:
         await callback.message.answer_photo(
-            photo=FSInputFile(products_menu_image_path),
+            photo=FSInputFile(catalog_menu_image_path),
             caption=('☁️ <b>There are currently no products in stock. ☁️\n📦 Please wait for a restock.</b> 📦'),
-            reply_markup=products_keyboard([], page, False),
+            reply_markup=products_list_keyboard([], page, False),
             parse_mode='HTML'
         )
 
@@ -28,9 +28,9 @@ async def products_handler(callback: CallbackQuery) -> None:
         return
 
     await callback.message.answer_photo(
-        photo=FSInputFile(products_menu_image_path),
-        caption='📦 <b>Products menu 📦\nSelect a product from the list to continue</b>',
-        reply_markup=products_keyboard(
+        photo=FSInputFile(catalog_menu_image_path),
+        caption='📦 <b>Catalog 📦\nSelect a product from the list to continue</b>',
+        reply_markup=products_list_keyboard(
             products,
             page,
             has_next_page
@@ -50,12 +50,12 @@ async def products_page_handler(callback: CallbackQuery) -> None:
     products, has_next_page = await retrieve_products(page=page, products_per_page=products_per_page)
 
     await callback.message.answer_photo(
-        photo=FSInputFile(products_menu_image_path),
+        photo=FSInputFile(catalog_menu_image_path),
         caption=(
-            '📦 <b>Products menu 📦\n'
+            '📦 <b>Catalog 📦\n'
             'Select a product from the list to continue</b>'
         ),
-        reply_markup=products_keyboard(
+        reply_markup=products_list_keyboard(
             products,
             page,
             has_next_page

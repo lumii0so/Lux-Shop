@@ -3,7 +3,7 @@ from aiogram.types import Message, CallbackQuery
 from aiogram.fsm.context import FSMContext
 
 from app.config import admin_ids
-from app.admin.keyboards.admin_request_menu_keyboard import admin_request_notification_keyboard
+from app.admin.keyboards.admin_request_menu_keyboard import admin_notification_keyboard
 from app.user.keyboards.support_menu_keyboards.request_menu_keyboard import opened_request_keyboard, closed_request_keyboard, user_support_request_keyboard, reply_keyboard
 from app.database.queries import get_request, get_request_messages, add_request_message, get_request_telegram_id
 from app.user.states import UserReplyRequest
@@ -12,7 +12,7 @@ router = Router()
 
 async def show_request_menu(message: Message, request_id: int, username: str, messages: list[tuple]) -> None:
     text = (
-        f'🆘 <b>Support request №{request_id}</b>\n\n'
+        f'🆘 <b>Support request №{request_id} (User)</b>\n\n'
         f'👤 <b>@{username}</b>\n\n'
     )
 
@@ -96,7 +96,7 @@ async def admin_reply_message_handler(
                     f'👤 <b>@{message.from_user.username or "No username"}</b>\n\n' 
                     f'💬 {message.text}' 
                 ), 
-                reply_markup=admin_request_notification_keyboard(request_id), 
+                reply_markup=admin_notification_keyboard(request_id), 
                 parse_mode='HTML' 
             )
 

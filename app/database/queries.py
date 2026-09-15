@@ -1,4 +1,5 @@
 from app.database import connection
+from decimal import Decimal
 
 # User initialization
 async def create_user(
@@ -45,6 +46,87 @@ async def retrieve_products(page: int, products_per_page: int) -> tuple[list, bo
     has_next_page = len(products) > products_per_page
 
     return products[:products_per_page], has_next_page
+
+async def get_product(product_id: int) -> tuple | None:
+    if connection.pool is None:
+        raise RuntimeError('Database pool has not been initialized.')
+
+    async with connection.pool.connection() as conn:
+            async with conn.cursor() as cur:
+                await cur.execute(
+                    """
+                    SELECT *
+                    FROM products
+                    WHERE ProductID = %s
+                    """,
+                    (product_id,)
+                )
+    
+                product = await cur.fetchone()
+            
+    return product if product else None
+
+async def get_product_name(product_id: int) -> str | None:
+    if connection.pool is None:
+        raise RuntimeError('Database pool has not been initialized.')
+
+    async with connection.pool.connection() as conn:
+            async with conn.cursor() as cur:
+                await cur.execute(
+                    """
+                    SELECT ProductName
+                    FROM products
+                    WHERE ProductID = %s
+                    """,
+                    (product_id,)
+                )
+    
+                product = await cur.fetchone()
+            
+    return str(product[0]) if product else None
+
+async def edit_product(
+        product_id: int,
+        name: str,
+        category: str,
+        price: Decimal,
+        stock: int
+):
+    if connection.pool is None:
+            raise RuntimeError('Database pool has not been initialized.')
+    
+    async with connection.pool.connection() as conn:
+        async with conn.cursor() as cur:
+            await cur.execute(
+                """
+                UPDATE products
+                SET ProductName = %s,
+                    Price = %s,
+                    Stock = %s,
+                    ProductCategory = %s
+                WHERE ProductID = %s
+                """,
+                (name, price, stock, category, product_id)
+            )
+        
+            await conn.commit()
+
+async def delete_product(product_id: int) -> None:
+    if connection.pool is None:
+        raise RuntimeError('Database pool has not been initialized.')
+
+    async with connection.pool.connection() as conn:
+            async with conn.cursor() as cur:
+                await cur.execute(
+                    """
+                    DELETE FROM products
+                    WHERE ProductID = %s
+                    """,
+                    (product_id,)
+                )
+    
+            await conn.commit()
+    
 
 # Admin products
 async def add_product(

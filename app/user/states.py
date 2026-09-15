@@ -6,6 +6,13 @@ class AddProduct(StatesGroup):
     price = State()
     stock = State()
 
+class EditProduct(StatesGroup):
+    product_id = State()
+    name = State()
+    category = State()
+    price = State()
+    stock = State()
+
 class SupportRequest(StatesGroup):
     message = State()
 
