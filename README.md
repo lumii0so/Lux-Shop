@@ -35,9 +35,12 @@ storage and Docker for deployment.
 - Admin-only panel
 - Products menu
     - Add products
+<<<<<<< HEAD
+=======
 - Support requests
     - View open requests
         - Respond to requests
+>>>>>>> 01dee69 (Update project to v0.2.0 - Support System Release)
 
 #### In Development
 
@@ -96,10 +99,17 @@ Follow these steps to run the bot locally using Docker and Docker Compose.
 Make sure you have [Docker](https://docker.com) and [Docker Compose](https://docker.com) installed.
 
 ### 1. Clone the repository:
+<<<<<<< HEAD
+```bash
+git clone https://github.com/lumii0so/Lux-Shop.git
+cd your-repo-name
+```
+=======
     ```bash
     git clone https://github.com/lumii0so/Lux-Shop.git
     cd your-repo-name
     ```
+>>>>>>> 01dee69 (Update project to v0.2.0 - Support System Release)
 
 ### 2. Create the environment file:
     Copy `.env.example` to `.env` and fill in your actual Telegram Bot Token and database credentials.

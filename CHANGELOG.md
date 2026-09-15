@@ -1,4 +1,14 @@
-# Release v0.2.0
+# Patch v0.2.1 - 2026-09-15
+
+## What's new
+
+## About menu
+- Fixed an issue where the displayed bot version did not match the actual release version
+
+## Changelog
+- Added timestamps to all logs for better tracking
+
+# Release v0.2.0 - 2026-09-13
 
 ## What's new
 
