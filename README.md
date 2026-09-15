@@ -35,12 +35,9 @@ storage and Docker for deployment.
 - Admin-only panel
 - Products menu
     - Add products
-<<<<<<< HEAD
-=======
 - Support requests
     - View open requests
         - Respond to requests
->>>>>>> 01dee69 (Update project to v0.2.0 - Support System Release)
 
 #### In Development
 
