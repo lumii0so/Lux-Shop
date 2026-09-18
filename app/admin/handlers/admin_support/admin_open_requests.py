@@ -2,7 +2,7 @@ from aiogram import F, Router
 from aiogram.types import CallbackQuery
 
 from app.database.queries import retrieve_open_requests
-from app.admin.keyboards.admin_open_requests_keyboard import open_requests_keyboard
+from app.admin.keyboards.admin_support_keyboards.admin_open_requests_keyboard import open_requests_keyboard
 
 from app.config import admin_ids
 from app.admin.filters import IsAdmin

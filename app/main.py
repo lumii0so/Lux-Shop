@@ -11,16 +11,19 @@ from app.database.connection import init_db, close_db
 
 # User handlers
 from app.user.handlers.main_menu import router as main_menu_router
-from app.user.handlers.products import router as products_router
+from app.user.handlers.products.view_catalog import router as catalog_router
+from app.user.handlers.products.product_view import router as product_view_router
+from app.user.handlers.products.user_cart import router as user_cart_router
+from app.user.handlers.products.cart_item_view import router as cart_item_router
 
 
 from app.user.handlers.orders import router as orders_router
 
 
-from app.user.handlers.support_menu.support_menu import router as support_menu_router
-from app.user.handlers.support_menu.write_support_request import router as write_request_router
-from app.user.handlers.support_menu.user_requests_menu import router as user_requests_router
-from app.user.handlers.support_menu.request_menu import router as user_request_menu_router
+from app.user.handlers.support.support_menu import router as support_menu_router
+from app.user.handlers.support.write_support_request import router as write_request_router
+from app.user.handlers.support.user_requests_menu import router as user_requests_router
+from app.user.handlers.support.request_menu import router as user_request_menu_router
 
 
 from app.user.handlers.about import router as about_router
@@ -29,23 +32,23 @@ from app.user.handlers.about import router as about_router
 from app.admin.handlers.admin_menu import router as admin_menu_router
 
 
-from app.admin.handlers.admin_products_menu.admin_products_menu import router as admin_products_menu_router
-from app.admin.handlers.admin_products_menu.admin_add_product import router as admin_add_product_router
-from app.admin.handlers.admin_products_menu.admin_view_products import router as admin_view_products_router
-from app.admin.handlers.admin_products_menu.admin_product_info_menu import router as admin_product_info_menu_router
+from app.admin.handlers.admin_products.admin_products_menu import router as admin_products_menu_router
+from app.admin.handlers.admin_products.admin_add_product import router as admin_add_product_router
+from app.admin.handlers.admin_products.admin_view_catalog import router as admin_catalog_router
+from app.admin.handlers.admin_products.admin_product_view import router as admin_product_view_router
 
-from app.admin.handlers.admin_orders_menu.admin_orders_menu import router as admin_orders_menu_router
-
-
-from app.admin.handlers.admin_users_menu.admin_users_menu import router as admin_users_menu_router
+from app.admin.handlers.admin_orders.admin_orders_menu import router as admin_orders_menu_router
 
 
-from app.admin.handlers.admin_support_menu.admin_support_menu import router as admin_support_menu_router
-from app.admin.handlers.admin_support_menu.admin_open_requests import router as admin_open_requests_menu_router
-from app.admin.handlers.admin_support_menu.admin_request_menu import router as admin_request_menu_router
+from app.admin.handlers.admin_users.admin_users_menu import router as admin_users_menu_router
 
 
-from app.admin.handlers.admin_statistics_menu.admin_statistics_menu import router as admin_statistics_menu_router
+from app.admin.handlers.admin_support.admin_support_menu import router as admin_support_menu_router
+from app.admin.handlers.admin_support.admin_open_requests import router as admin_open_requests_menu_router
+from app.admin.handlers.admin_support.admin_request_view import router as admin_request_menu_router
+
+
+from app.admin.handlers.admin_statistics.admin_statistics_menu import router as admin_statistics_menu_router
 
 # ================================================================
 
@@ -69,7 +72,10 @@ async def set_commands(bot: Bot):
 dp.include_router(main_menu_router)
 
 # 1.1 User products panel handlers
-dp.include_router(products_router)
+dp.include_router(catalog_router)
+dp.include_router(product_view_router)
+dp.include_router(user_cart_router)
+dp.include_router(cart_item_router)
 
 # 1.2 User orders panel handlers
 dp.include_router(orders_router)
@@ -91,8 +97,8 @@ dp.include_router(admin_menu_router)
 # 2.1 Admin products panel handlers
 dp.include_router(admin_products_menu_router)
 dp.include_router(admin_add_product_router)
-dp.include_router(admin_view_products_router)
-dp.include_router(admin_product_info_menu_router)
+dp.include_router(admin_catalog_router)
+dp.include_router(admin_product_view_router)
 
 # 2.2 Admin orders panel handlers
 dp.include_router(admin_orders_menu_router)

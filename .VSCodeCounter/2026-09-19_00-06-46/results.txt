@@ -1,0 +1,109 @@
+Date : 2026-09-19 00:06:46
+Directory : e:\Downloads\project_september
+Total : 51 files,  2445 codes, 213 comments, 655 blanks, all 3313 lines
+
+Languages
++------------------+------------+------------+------------+------------+------------+
+| language         | files      | code       | comment    | blank      | total      |
++------------------+------------+------------+------------+------------+------------+
+| Python           |         44 |      2,196 |        211 |        577 |      2,984 |
+| Markdown         |          2 |        148 |          0 |         51 |        199 |
+| MS SQL           |          1 |         60 |          0 |         18 |         78 |
+| YAML             |          1 |         23 |          0 |          1 |         24 |
+| Docker           |          1 |         10 |          2 |          8 |         20 |
+| Ignore           |          1 |          5 |          0 |          0 |          5 |
+| pip requirements |          1 |          3 |          0 |          0 |          3 |
++------------------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                        | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                           |         51 |      2,445 |        213 |        655 |      3,313 |
+| . (Files)                                                                                                   |          6 |        189 |          2 |         60 |        251 |
+| app                                                                                                         |         44 |      2,196 |        211 |        577 |      2,984 |
+| app (Files)                                                                                                 |          3 |         81 |         23 |         51 |        155 |
+| app\admin                                                                                                   |         19 |        812 |          5 |        200 |      1,017 |
+| app\admin (Files)                                                                                           |          1 |         10 |          0 |          2 |         12 |
+| app\admin\handlers                                                                                          |         12 |        538 |          5 |        171 |        714 |
+| app\admin\handlers (Files)                                                                                  |          1 |         21 |          0 |          7 |         28 |
+| app\admin\handlers\admin_orders                                                                             |          1 |          8 |          0 |          3 |         11 |
+| app\admin\handlers\admin_products                                                                           |          4 |        345 |          5 |        107 |        457 |
+| app\admin\handlers\admin_statistics                                                                         |          1 |          8 |          0 |          3 |         11 |
+| app\admin\handlers\admin_support                                                                            |          4 |        148 |          0 |         48 |        196 |
+| app\admin\handlers\admin_users                                                                              |          1 |          8 |          0 |          3 |         11 |
+| app\admin\keyboards                                                                                         |          6 |        264 |          0 |         27 |        291 |
+| app\admin\keyboards (Files)                                                                                 |          1 |         41 |          0 |          1 |         42 |
+| app\admin\keyboards\admin_products_keyboards                                                                |          2 |        107 |          0 |         12 |        119 |
+| app\admin\keyboards\admin_support_keyboards                                                                 |          3 |        116 |          0 |         14 |        130 |
+| app\database                                                                                                |          2 |        299 |        164 |         89 |        552 |
+| app\user                                                                                                    |         20 |      1,004 |         19 |        237 |      1,260 |
+| app\user (Files)                                                                                            |          1 |         22 |          0 |          7 |         29 |
+| app\user\handlers                                                                                           |         11 |        648 |         19 |        186 |        853 |
+| app\user\handlers (Files)                                                                                   |          3 |         52 |         19 |         20 |         91 |
+| app\user\handlers\products                                                                                  |          4 |        385 |          0 |        103 |        488 |
+| app\user\handlers\support                                                                                   |          4 |        211 |          0 |         63 |        274 |
+| app\user\keyboards                                                                                          |          8 |        334 |          0 |         44 |        378 |
+| app\user\keyboards (Files)                                                                                  |          3 |         32 |          0 |          3 |         35 |
+| app\user\keyboards\products_keyboards                                                                       |          2 |        181 |          0 |         25 |        206 |
+| app\user\keyboards\support_keyboards                                                                        |          3 |        121 |          0 |         16 |        137 |
+| database                                                                                                    |          1 |         60 |          0 |         18 |         78 |
++-------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------------------------------------------------------+------------------+------------+------------+------------+------------+
+| filename                                                                                                    | language         | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------------------------------------------+------------------+------------+------------+------------+------------+
+| e:\Downloads\project_september\.dockerignore                                                                | Ignore           |          5 |          0 |          0 |          5 |
+| e:\Downloads\project_september\CHANGELOG.md                                                                 | Markdown         |         46 |          0 |         20 |         66 |
+| e:\Downloads\project_september\README.md                                                                    | Markdown         |        102 |          0 |         31 |        133 |
+| e:\Downloads\project_september\app\admin\filters.py                                                         | Python           |         10 |          0 |          2 |         12 |
+| e:\Downloads\project_september\app\admin\handlers\admin_menu.py                                             | Python           |         21 |          0 |          7 |         28 |
+| e:\Downloads\project_september\app\admin\handlers\admin_orders\admin_orders_menu.py                         | Python           |          8 |          0 |          3 |         11 |
+| e:\Downloads\project_september\app\admin\handlers\admin_products\admin_add_product.py                       | Python           |        104 |          1 |         31 |        136 |
+| e:\Downloads\project_september\app\admin\handlers\admin_products\admin_product_view.py                      | Python           |        174 |          4 |         56 |        234 |
+| e:\Downloads\project_september\app\admin\handlers\admin_products\admin_products_menu.py                     | Python           |         17 |          0 |          6 |         23 |
+| e:\Downloads\project_september\app\admin\handlers\admin_products\admin_view_catalog.py                      | Python           |         50 |          0 |         14 |         64 |
+| e:\Downloads\project_september\app\admin\handlers\admin_statistics\admin_statistics_menu.py                 | Python           |          8 |          0 |          3 |         11 |
+| e:\Downloads\project_september\app\admin\handlers\admin_support\admin_close_request.py                      | Python           |          0 |          0 |          1 |          1 |
+| e:\Downloads\project_september\app\admin\handlers\admin_support\admin_open_requests.py                      | Python           |         47 |          0 |         15 |         62 |
+| e:\Downloads\project_september\app\admin\handlers\admin_support\admin_request_view.py                       | Python           |         84 |          0 |         26 |        110 |
+| e:\Downloads\project_september\app\admin\handlers\admin_support\admin_support_menu.py                       | Python           |         17 |          0 |          6 |         23 |
+| e:\Downloads\project_september\app\admin\handlers\admin_users\admin_users_menu.py                           | Python           |          8 |          0 |          3 |         11 |
+| e:\Downloads\project_september\app\admin\keyboards\admin_menu_keyboard.py                                   | Python           |         41 |          0 |          1 |         42 |
+| e:\Downloads\project_september\app\admin\keyboards\admin_products_keyboards\admin_catalog_keyboard.py       | Python           |         84 |          0 |         11 |         95 |
+| e:\Downloads\project_september\app\admin\keyboards\admin_products_keyboards\admin_products_menu_keyboard.py | Python           |         23 |          0 |          1 |         24 |
+| e:\Downloads\project_september\app\admin\keyboards\admin_support_keyboards\admin_open_requests_keyboard.py  | Python           |         36 |          0 |          9 |         45 |
+| e:\Downloads\project_september\app\admin\keyboards\admin_support_keyboards\admin_request_view_keyboard.py   | Python           |         57 |          0 |          4 |         61 |
+| e:\Downloads\project_september\app\admin\keyboards\admin_support_keyboards\admin_support_menu_keyboard.py   | Python           |         23 |          0 |          1 |         24 |
+| e:\Downloads\project_september\app\config.py                                                                | Python           |          8 |          0 |          3 |         11 |
+| e:\Downloads\project_september\app\database\connection.py                                                   | Python           |         32 |          1 |         11 |         44 |
+| e:\Downloads\project_september\app\database\queries.py                                                      | Python           |        267 |        163 |         78 |        508 |
+| e:\Downloads\project_september\app\main.py                                                                  | Python           |         65 |         22 |         45 |        132 |
+| e:\Downloads\project_september\app\paths.py                                                                 | Python           |          8 |          1 |          3 |         12 |
+| e:\Downloads\project_september\app\user\handlers\about.py                                                   | Python           |         11 |         16 |          5 |         32 |
+| e:\Downloads\project_september\app\user\handlers\main_menu.py                                               | Python           |         28 |          0 |          9 |         37 |
+| e:\Downloads\project_september\app\user\handlers\orders.py                                                  | Python           |         13 |          3 |          6 |         22 |
+| e:\Downloads\project_september\app\user\handlers\products\cart_item_view.py                                 | Python           |        110 |          0 |         29 |        139 |
+| e:\Downloads\project_september\app\user\handlers\products\product_view.py                                   | Python           |        116 |          0 |         26 |        142 |
+| e:\Downloads\project_september\app\user\handlers\products\user_cart.py                                      | Python           |        100 |          0 |         32 |        132 |
+| e:\Downloads\project_september\app\user\handlers\products\view_catalog.py                                   | Python           |         59 |          0 |         16 |         75 |
+| e:\Downloads\project_september\app\user\handlers\support\request_menu.py                                    | Python           |         88 |          0 |         26 |        114 |
+| e:\Downloads\project_september\app\user\handlers\support\support_menu.py                                    | Python           |         17 |          0 |          7 |         24 |
+| e:\Downloads\project_september\app\user\handlers\support\user_requests_menu.py                              | Python           |         46 |          0 |         14 |         60 |
+| e:\Downloads\project_september\app\user\handlers\support\write_support_request.py                           | Python           |         60 |          0 |         16 |         76 |
+| e:\Downloads\project_september\app\user\keyboards\about_menu_keyboard.py                                    | Python           |         11 |          0 |          1 |         12 |
+| e:\Downloads\project_september\app\user\keyboards\main_menu_keyboard.py                                     | Python           |         17 |          0 |          1 |         18 |
+| e:\Downloads\project_september\app\user\keyboards\orders_menu_keyboard.py                                   | Python           |          4 |          0 |          1 |          5 |
+| e:\Downloads\project_september\app\user\keyboards\products_keyboards\cart_keyboard.py                       | Python           |         96 |          0 |         13 |        109 |
+| e:\Downloads\project_september\app\user\keyboards\products_keyboards\catalog_keyboard.py                    | Python           |         85 |          0 |         12 |         97 |
+| e:\Downloads\project_september\app\user\keyboards\support_keyboards\request_view_keyboard.py                | Python           |         63 |          0 |          5 |         68 |
+| e:\Downloads\project_september\app\user\keyboards\support_keyboards\support_menu_keyboard.py                | Python           |         21 |          0 |          2 |         23 |
+| e:\Downloads\project_september\app\user\keyboards\support_keyboards\user_requests_keyboard.py               | Python           |         37 |          0 |          9 |         46 |
+| e:\Downloads\project_september\app\user\states.py                                                           | Python           |         22 |          0 |          7 |         29 |
+| e:\Downloads\project_september\compose.yaml                                                                 | YAML             |         23 |          0 |          1 |         24 |
+| e:\Downloads\project_september\database\schema.sql                                                          | MS SQL           |         60 |          0 |         18 |         78 |
+| e:\Downloads\project_september\dockerfile                                                                   | Docker           |         10 |          2 |          8 |         20 |
+| e:\Downloads\project_september\requirements.txt                                                             | pip requirements |          3 |          0 |          0 |          3 |
+| Total                                                                                                       |                  |      2,445 |        213 |        655 |      3,313 |
++-------------------------------------------------------------------------------------------------------------+------------------+------------+------------+------------+------------+

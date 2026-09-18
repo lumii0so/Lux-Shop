@@ -1,7 +1,7 @@
 from aiogram import F, Router
 from aiogram.types import CallbackQuery, FSInputFile, Message
 
-from app.user.keyboards.support_menu_keyboards.support_menu_keyboard import support_menu_keyboard
+from app.user.keyboards.support_keyboards.support_menu_keyboard import support_menu_keyboard
 from app.paths import support_menu_image_path
 
 router = Router()

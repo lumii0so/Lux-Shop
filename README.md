@@ -17,6 +17,8 @@ storage and Docker for deployment.
 #### Available
 
 - Browse products
+    - View product details
+    - Managing products cart
 - Contact support
     - Make support requests
     - View submitted requests
@@ -24,7 +26,6 @@ storage and Docker for deployment.
 
 #### In Development
 
-- View product details
 - Place orders
 - View order history
 

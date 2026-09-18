@@ -3,12 +3,12 @@ from aiogram.types import CallbackQuery
 
 from app.config import admin_ids
 from app.admin.filters import IsAdmin
-from app.admin.keyboards.admin_products_keyboard import admin_products_list_keyboard
+from app.admin.keyboards.admin_products_keyboards.admin_catalog_keyboard import admin_catalog_keyboard
 from app.database.queries import retrieve_products
 
 router = Router()
 
-@router.callback_query(F.data == 'admin:products:view', IsAdmin(admin_ids))
+@router.callback_query(F.data == 'admin:products:catalog', IsAdmin(admin_ids))
 async def add_product_handler(callback: CallbackQuery) -> None:
     await callback.message.delete()
 
@@ -20,7 +20,7 @@ async def add_product_handler(callback: CallbackQuery) -> None:
     if not products:
         await callback.message.answer(
             text=('☁️ <b>There are currently no products in stock. ☁️\n📦 You can add new products through admin panel.</b> 📦'),
-            reply_markup=admin_products_list_keyboard([], page, False),
+            reply_markup=admin_catalog_keyboard([], page, False),
             parse_mode='HTML'
         )
 
@@ -29,7 +29,7 @@ async def add_product_handler(callback: CallbackQuery) -> None:
 
     await callback.message.answer(
         text='📦 <b>Admin catalog 📦\nSelect a product from the list to continue</b>',
-        reply_markup=admin_products_list_keyboard(
+        reply_markup=admin_catalog_keyboard(
             products,
             page,
             has_next_page
@@ -53,7 +53,7 @@ async def products_page_handler(callback: CallbackQuery) -> None:
             '📦 <b>Admin catalog 📦\n'
             'Select a product from the list to continue</b>'
         ),
-        reply_markup=admin_products_list_keyboard(
+        reply_markup=admin_catalog_keyboard(
             products,
             page,
             has_next_page
