@@ -3,7 +3,7 @@ from aiogram.types import Message, CallbackQuery
 
 from app.config import admin_ids
 from app.admin.filters import IsAdmin
-from app.admin.keyboards.admin_support_keyboard import admin_support_keyboard
+from app.admin.keyboards.admin_support_keyboards.admin_support_menu_keyboard import admin_support_keyboard
 
 router = Router()
 

@@ -2,18 +2,17 @@ from aiogram import F, Router
 from aiogram.types import Message, CallbackQuery
 from aiogram.fsm.context import FSMContext
 
-from app.user.keyboards.support_menu_keyboards.request_menu_keyboard import request_notification_keyboard
-from app.admin.keyboards.admin_request_menu_keyboard import admin_request_menu_keyboard, admin_request_reply_keyboard, admin_notification_keyboard
-from app.database.queries import get_request, get_request_messages, add_request_message, get_request_telegram_id
-from app.user.states import AdminReplyRequest
 from app.config import admin_ids
-from app.admin.filters import IsAdmin
+from app.admin.keyboards.admin_support_keyboards.admin_request_view_keyboard import admin_notification_keyboard
+from app.user.keyboards.support_keyboards.request_view_keyboard import opened_request_keyboard, closed_request_keyboard, user_support_request_keyboard, reply_keyboard
+from app.database.queries import get_request, get_request_messages, add_request_message, get_request_telegram_id
+from app.user.states import UserReplyRequest
 
 router = Router()
 
 async def show_request_menu(message: Message, request_id: int, username: str, messages: list[tuple]) -> None:
     text = (
-        f'🆘 <b>Support request №{request_id} (Admin)</b>\n\n'
+        f'🆘 <b>Support request №{request_id} (User)</b>\n\n'
         f'👤 <b>@{username}</b>\n\n'
     )
 
@@ -25,12 +24,12 @@ async def show_request_menu(message: Message, request_id: int, username: str, me
 
     await message.answer(
                 text=text,
-                reply_markup=admin_request_menu_keyboard(request_id),
+                reply_markup=opened_request_keyboard(request_id),
                 parse_mode='HTML'
             )
 
-@router.callback_query(F.data.startswith('admin:requestid:'), IsAdmin(admin_ids))
-async def admin_menu_button_handler(callback: CallbackQuery) -> None:
+@router.callback_query(F.data.startswith('requestid:'))
+async def add_product_handler(callback: CallbackQuery) -> None:
     request_id = int(callback.data.split(':')[-1])
 
     request = await get_request(request_id=request_id)
@@ -46,7 +45,7 @@ async def admin_menu_button_handler(callback: CallbackQuery) -> None:
 
     await callback.answer()
 
-@router.callback_query(F.data.startswith('admin:request:reply:'))
+@router.callback_query(F.data.startswith('request:reply:'))
 async def reply_request_handler(callback: CallbackQuery, state: FSMContext) -> None:
     await callback.message.delete()
 
@@ -54,15 +53,15 @@ async def reply_request_handler(callback: CallbackQuery, state: FSMContext) -> N
 
     prompt_message = await callback.message.answer(
             text='💬 Enter your reply:',
-            reply_markup=admin_request_reply_keyboard(request_id)
+            reply_markup=reply_keyboard(request_id)
         )
 
     await state.update_data(request_id=request_id, prompt_message_id=prompt_message.message_id)
-    await state.set_state(AdminReplyRequest.message)
+    await state.set_state(UserReplyRequest.message)
 
     await callback.answer()
 
-@router.message(AdminReplyRequest.message)
+@router.message(UserReplyRequest.message)
 async def admin_reply_message_handler(
     message: Message,
     state: FSMContext
@@ -85,16 +84,21 @@ async def admin_reply_message_handler(
 
     await add_request_message(
         request_id=request_id,
-        sender_type='admin',
+        sender_type='user',
         message=message.text
     )
 
-    await message.bot.send_message(
-        chat_id=telegram_id,
-        text=f'🛠 <b>Admin has responded to your request №{request_id} 🛠</b>',
-        reply_markup=request_notification_keyboard(request_id),
-        parse_mode='HTML'
-    )
+    for admin_id in admin_ids: 
+            await message.bot.send_message( 
+                chat_id=admin_id, 
+                text=(
+                    f'🆘 <b>New user response in request №{request_id}</b>\n\n' 
+                    f'👤 <b>@{message.from_user.username or "No username"}</b>\n\n' 
+                    f'💬 {message.text}' 
+                ), 
+                reply_markup=admin_notification_keyboard(request_id), 
+                parse_mode='HTML' 
+            )
 
     await message.bot.delete_message(
         chat_id=message.chat.id,
@@ -104,7 +108,7 @@ async def admin_reply_message_handler(
     await state.clear()
 
     await message.answer(
-        '✅ <b>Your support request response has been sent.</b>',
-        reply_markup=admin_notification_keyboard(request_id),
+        f'✅ <b>Your message on request №{request_id} has been sent.</b>',
+        reply_markup=user_support_request_keyboard,
         parse_mode='HTML'
     )

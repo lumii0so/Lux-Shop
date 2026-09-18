@@ -1,6 +1,6 @@
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-def admin_products_list_keyboard(products: list, page: int, has_next_page: bool) -> InlineKeyboardMarkup:
+def admin_catalog_keyboard(products: list, page: int, has_next_page: bool) -> InlineKeyboardMarkup:
     buttons = []
 
     for product in products:
@@ -11,7 +11,7 @@ def admin_products_list_keyboard(products: list, page: int, has_next_page: bool)
 
         buttons.append([
             InlineKeyboardButton(
-                text=f"🛍 {product_name} - 💵 {product_price}$ - 🗒️ {product_category}",
+                text=f"🛍 {product_name} - 💵 ${product_price} - 🗒️ {product_category}",
                 callback_data=f"admin:product_info:{product_id}"
             )
         ])
@@ -70,7 +70,7 @@ def admin_product_keyboard(product_id: int) -> InlineKeyboardMarkup:
                 [
                     InlineKeyboardButton(
                         text='◀️ Back',
-                        callback_data='admin:products:view'
+                        callback_data='admin:products:catalog'
                     )
                 ]
             ]

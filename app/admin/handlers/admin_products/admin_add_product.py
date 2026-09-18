@@ -4,7 +4,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.filters import StateFilter
 
 from app.config import admin_ids
-from app.admin.keyboards.admin_products_menu_keyboard import admin_products_keyboard
+from app.admin.keyboards.admin_products_keyboards.admin_products_menu_keyboard import admin_products_keyboard
 from app.admin.filters import IsAdmin
 from app.user.states import AddProduct
 from app.database.queries import add_product

@@ -11,7 +11,7 @@ admin_products_keyboard = InlineKeyboardMarkup(
             [
                 InlineKeyboardButton(
                     text='📖 View products',
-                    callback_data='admin:products:view'
+                    callback_data='admin:products:catalog'
                 )
             ],
             [

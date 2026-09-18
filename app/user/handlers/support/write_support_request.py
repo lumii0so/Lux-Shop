@@ -2,10 +2,10 @@ from aiogram import F, Router
 from aiogram.types import CallbackQuery, Message
 from aiogram.fsm.context import FSMContext
 
-from app.admin.keyboards.admin_request_menu_keyboard import admin_notification_keyboard
-from app.user.keyboards.support_menu_keyboards.support_menu_keyboard import support_request_keyboard
+from app.admin.keyboards.admin_support_keyboards.admin_request_view_keyboard import admin_notification_keyboard
+from app.user.keyboards.support_keyboards.support_menu_keyboard import support_request_keyboard
 from app.user.states import SupportRequest
-from app.database.queries import get_user_id, create_support_request, add_request_message
+from app.database.queries import get_user_id, create_support_request
 from app.config import admin_ids
 
 router = Router()

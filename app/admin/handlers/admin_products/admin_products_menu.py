@@ -1,7 +1,7 @@
 from aiogram import F, Router
 from aiogram.types import Message, CallbackQuery
 
-from app.admin.keyboards.admin_products_menu_keyboard import admin_products_keyboard
+from app.admin.keyboards.admin_products_keyboards.admin_products_menu_keyboard import admin_products_keyboard
 from app.config import admin_ids
 from app.admin.filters import IsAdmin
 

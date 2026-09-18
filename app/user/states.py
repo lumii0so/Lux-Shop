@@ -21,3 +21,9 @@ class UserReplyRequest(StatesGroup):
 
 class AdminReplyRequest(StatesGroup):
     message = State()
+
+class AddToCart(StatesGroup):
+    quantity = State()
+
+class EditCartItem(StatesGroup):
+    quantity = State()

@@ -1,8 +1,23 @@
+# Release v0.4.0 - 2026-09-18
+
+## What's new
+
+### User catalog menu
+- Added user product info menu
+
+### Shopping cart
+- Added cart management: adding items, editing quantity and deleting items
+- Added "Buy all" checkout menu
+
+## Improvements & Changes
+- Renamed most of the folders and .py files for clarity
+- Updated admin product info menu
+
 # Release v0.3.0 - 2026-09-15
 
 ## What's new
 
-### Admin products menu
+### Admin catalog menu
 - Combined separate product edit, delete and statistics functions in one under product info menu
 - Added admin catalog view
 - Added product info menu with built-in product editing and deletion

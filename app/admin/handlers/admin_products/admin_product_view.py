@@ -6,8 +6,8 @@ from decimal import Decimal, InvalidOperation
 
 from app.config import admin_ids
 from app.admin.filters import IsAdmin
-from app.admin.keyboards.admin_products_keyboard import admin_product_keyboard, admin_product_operation_confirmation_keyboard
-from app.admin.keyboards.admin_products_menu_keyboard import admin_products_keyboard
+from app.admin.keyboards.admin_products_keyboards.admin_catalog_keyboard import admin_product_keyboard, admin_product_operation_confirmation_keyboard
+from app.admin.keyboards.admin_products_keyboards.admin_products_menu_keyboard import admin_products_keyboard
 from app.database.queries import get_product, get_product_name, edit_product, delete_product
 from app.user.states import EditProduct
 
@@ -22,10 +22,10 @@ async def show_product_info(
     product_category: str
 ) -> None:
     text = (
-         f'📋 <b>{product_name.capitalize()} (<i>№{product_id}</i>) (<i>{product_category}</i>)</b> 📋\n\n'
+         f'📋 <b>{product_name.capitalize()} (<i>№{product_id}</i>)</b>\n\n'
+         f'🏷️ <b>Category: {product_category}</b>\n\n'
          f'💲 <b>Product price: ${product_price}</b>\n'
-         f'📦 <b>Product stock: {product_stock}</b>\n\n'
-         f'🔽 <b>Choose an action from below </b>🔽'
+         f'📦 <b>Product stock: {product_stock}</b>'
     )
 
     await message.answer(
@@ -33,7 +33,6 @@ async def show_product_info(
         reply_markup=admin_product_keyboard(product_id),
         parse_mode='HTML'
     )
-
 
 @router.callback_query(F.data.startswith('admin:product_info:'), IsAdmin(admin_ids))
 async def admin_product_info_handler(callback: CallbackQuery) -> None:

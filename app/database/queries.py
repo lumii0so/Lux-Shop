@@ -22,6 +22,25 @@ async def create_user(
             )
         await conn.commit()
 
+async def get_user_id(telegram_id: int) -> int | None:
+    if connection.pool is None:
+        raise RuntimeError("Database pool has not been initialized.")
+
+    async with connection.pool.connection() as conn:
+        async with conn.cursor() as cur:
+            await cur.execute(
+                """
+                SELECT UserID
+                FROM users
+                WHERE TelegramID = %s
+                """,
+                (telegram_id,)
+            )
+
+            result = await cur.fetchone()
+
+    return result[0] if result else None
+
 # User products
 async def retrieve_products(page: int, products_per_page: int) -> tuple[list, bool]:
     if connection.pool is None:
@@ -85,6 +104,161 @@ async def get_product_name(product_id: int) -> str | None:
             
     return str(product[0]) if product else None
 
+async def get_cart_id(user_id: int) -> int | None:
+    if connection.pool is None:
+        raise RuntimeError('Database pool has not been initialized.')
+
+    async with connection.pool.connection() as conn:
+        async with conn.cursor() as cur:
+            await cur.execute(
+                """
+                SELECT CartID
+                FROM carts
+                WHERE UserID = %s
+                """,
+                (user_id,)
+            )
+            result = await cur.fetchone()
+    return result[0] if result else None
+
+async def add_item_to_cart(user_id: int, product_id: int, quantity: int) -> None:
+    if connection.pool is None:
+        raise RuntimeError('Database pool has not been initialized.')
+
+    async with connection.pool.connection() as conn:
+        async with conn.cursor() as cur:
+            await cur.execute(
+                """
+                WITH target_cart AS (
+                    INSERT INTO carts (UserID)
+                    VALUES (%s)
+                    ON CONFLICT (UserID) DO UPDATE
+                        SET UpdatedAt = CURRENT_TIMESTAMP
+                    RETURNING CartID
+                )
+                INSERT INTO cart_items (CartID, ProductID, Quantity)
+                SELECT CartID, %s, %s
+                FROM target_cart
+                ON CONFLICT (CartID, ProductID) DO UPDATE
+                    SET Quantity = EXCLUDED.Quantity
+                """,
+                (user_id, product_id, quantity)
+            )
+        await conn.commit()
+
+async def update_cart_item(cart_id: int, item_id: int, quantity: int) -> None:
+    if connection.pool is None:
+        raise RuntimeError('Database pool has not been initialized.')
+
+    async with connection.pool.connection() as conn:
+        async with conn.cursor() as cur:
+            if quantity <= 0:
+                await cur.execute(
+                    """
+                    DELETE FROM cart_items
+                    WHERE CartID = %s AND ProductID = %s
+                    """,
+                    (cart_id, item_id)
+                )
+            else:
+                await cur.execute(
+                    """
+                    UPDATE cart_items
+                    SET Quantity = %s
+                    WHERE CartID = %s AND ProductID = %s
+                    """,
+                    (quantity, cart_id, item_id)
+                )
+        await conn.commit()
+
+async def get_cart_item_details(cart_id: int, item_id: int) -> tuple | None:
+    if connection.pool is None:
+        raise RuntimeError('Database pool has not been initialized.')
+
+    async with connection.pool.connection() as conn:
+        async with conn.cursor() as cur:
+            await cur.execute(
+                """
+                SELECT 
+                    p.ProductID,
+                    p.ProductName,
+                    p.Price,
+                    p.Stock,
+                    p.ProductCategory,
+                    ci.Quantity AS CartQuantity,
+                    (p.Price * ci.Quantity) AS LineTotal
+                FROM cart_items ci
+                JOIN products p ON ci.ProductID = p.ProductID
+                WHERE ci.CartID = %s AND ci.ProductID = %s;
+                """,
+                (cart_id, item_id)
+            )
+            return await cur.fetchone()
+
+async def get_cart_contents(cart_id: int, page: int, items_per_page: int) -> tuple[list[tuple], float, bool]:
+    if connection.pool is None:
+        raise RuntimeError('Database pool has not been initialized.')
+
+    offset = (page - 1) * items_per_page
+
+    async with connection.pool.connection() as conn:
+        async with conn.cursor() as cur:
+            await cur.execute(
+                """
+                SELECT
+                    p.ProductID,
+                    p.ProductName,
+                    p.Price,
+                    ci.Quantity,
+                    (p.Price * ci.Quantity) AS LineTotal
+                FROM cart_items ci
+                JOIN products p ON ci.ProductID = p.ProductID
+                WHERE ci.CartID = %s
+                ORDER BY ci.CartItemID ASC
+                LIMIT %s OFFSET %s
+                   """,
+                (cart_id, items_per_page + 1, offset)
+               )
+            items = await cur.fetchall()
+
+            await cur.execute(
+                """
+                SELECT COALESCE(SUM(p.Price * ci.Quantity), 0)
+                FROM cart_items ci
+                JOIN products p ON ci.ProductID = p.ProductID
+                WHERE ci.CartID = %s
+                """,
+                (cart_id,)
+            )
+            total_result = await cur.fetchone()
+
+    has_next_page = len(items) > items_per_page
+    total_price = float(total_result[0]) if total_result else 0.0
+    
+    return items[:items_per_page], total_price, has_next_page
+
+async def check_cart_stock(cart_id: int) -> list[tuple[str, int, int]]:
+    if connection.pool is None:
+        raise RuntimeError('Database pool has not been initialized.')
+
+    async with connection.pool.connection() as conn:
+        async with conn.cursor() as cur:
+            await cur.execute(
+                """
+                SELECT 
+                    p.ProductName,
+                    ci.Quantity AS RequestedQty,
+                    p.Stock AS AvailableStock
+                FROM cart_items ci
+                JOIN products p ON ci.ProductID = p.ProductID
+                WHERE ci.CartID = %s AND ci.Quantity > p.Stock
+                """,
+                (cart_id,)
+            )
+            return await cur.fetchall() # Returns non empty list if quantity exceeds stock
+
+# Admin products
+
 async def edit_product(
         product_id: int,
         name: str,
@@ -109,26 +283,24 @@ async def edit_product(
                 (name, price, stock, category, product_id)
             )
         
-            await conn.commit()
+        await conn.commit()
 
 async def delete_product(product_id: int) -> None:
     if connection.pool is None:
         raise RuntimeError('Database pool has not been initialized.')
 
     async with connection.pool.connection() as conn:
-            async with conn.cursor() as cur:
-                await cur.execute(
-                    """
-                    DELETE FROM products
-                    WHERE ProductID = %s
-                    """,
-                    (product_id,)
-                )
+        async with conn.cursor() as cur:
+            await cur.execute(
+                """
+                DELETE FROM products
+                WHERE ProductID = %s
+                """,
+                (product_id,)
+            )
     
-            await conn.commit()
+        await conn.commit()
     
-
-# Admin products
 async def add_product(
         name: str,
         category: str,
@@ -238,25 +410,6 @@ async def create_support_request(user_id: int, message: str) -> int:
         await conn.commit()
 
     return request_id
-
-async def get_user_id(telegram_id: int) -> int | None:
-    if connection.pool is None:
-        raise RuntimeError("Database pool has not been initialized.")
-
-    async with connection.pool.connection() as conn:
-        async with conn.cursor() as cur:
-            await cur.execute(
-                """
-                SELECT UserID
-                FROM users
-                WHERE TelegramID = %s
-                """,
-                (telegram_id,)
-            )
-
-            result = await cur.fetchone()
-
-    return result[0] if result else None
 
 async def get_request(request_id: int) -> tuple | None:
     if connection.pool is None:
